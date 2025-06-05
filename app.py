@@ -8,7 +8,7 @@ import unicodedata # Para normalização de caracteres (remover acentos)
 
 # Configura o locale para formato numérico brasileiro
 try:
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    locale.setlocale(locale.LC_ALL, 'Portuguese_Brazil.1252')
 except locale.Error:
     st.warning("Não foi possível configurar o locale 'pt_BR.UTF-8'. As formatações numéricas podem não ser as esperadas.")
     st.warning("Em alguns sistemas (ex: Windows), pode ser necessário usar 'Portuguese_Brazil.1252' ou instalar o pacote de idioma.")
