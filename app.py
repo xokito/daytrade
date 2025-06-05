@@ -5,7 +5,7 @@ import locale
 import numpy as np
 import re
 import unicodedata # Para normalização de caracteres (remover acentos)
-
+st.set_page_config(layout="wide", page_title="Controle de Trades")
 # Configura o locale para formato numérico brasileiro
 try:
     locale.setlocale(locale.LC_ALL, 'Portuguese_Brazil.1252')
@@ -14,7 +14,7 @@ except locale.Error:
     st.warning("Em alguns sistemas (ex: Windows), pode ser necessário usar 'Portuguese_Brazil.1252' ou instalar o pacote de idioma.")
 
 
-st.set_page_config(layout="wide", page_title="Controle de Trades")
+
 
 st.title("📊 Controle de Trades Day Trade")
 
