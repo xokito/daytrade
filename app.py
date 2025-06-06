@@ -5,10 +5,11 @@ import locale
 import numpy as np
 import re
 import unicodedata # Para normalização de caracteres (remover acentos)
+
 st.set_page_config(layout="wide", page_title="Controle de Trades")
 # Configura o locale para formato numérico brasileiro
 try:
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    locale.setlocale(locale.LC_ALL, '')
 except locale.Error:
     st.warning("Não foi possível configurar o locale 'pt_BR.UTF-8'. As formatações numéricas podem não ser as esperadas.")
     st.warning("Em alguns sistemas (ex: Windows), pode ser necessário usar 'Portuguese_Brazil.1252' ou instalar o pacote de idioma.")
@@ -132,7 +133,7 @@ if uploaded_file is not None:
             color = text_color_negative if value < 0 else text_color_positive
             
             # Formata o valor usando o locale para o formato de moeda
-            formatted_value = locale.currency(value, grouping=True)
+            formatted_value = locale.format_string('%10.2f',value, grouping=True)
 
             # --- Cria o HTML com o estilo dinâmico ---
             html_string = f"""
@@ -270,18 +271,22 @@ if uploaded_file is not None:
         with col1:
             st.metric(
                 label="Capital Inicial",
-                value=locale.currency(initial_capital, grouping=True),
+                value=locale.format_string('%10.2f',initial_capital,grouping=True),
                 border=True,
             )
             st.metric(
                 label="Lucro/Prejuízo Total",
-                value=locale.currency(total_profit_loss, grouping=True),
+                #value=locale.currency(total_profit_loss, grouping=True),
+                value=locale.format_string('%10.2f',total_profit_loss, grouping=True),
                 border=True,
             )
-            st.metric(label="Retorno Percentual", value=f"{percentage_return:.2f}%", border=True)
+            st.metric(
+                label="Retorno Percentual", 
+                value=f"{percentage_return:.2f}%", 
+                border=True)
             st.metric(
                 label="Capital Atual",
-                value=locale.currency(current_capital, grouping=True),
+                value=locale.format_string('%10.2f',current_capital, grouping=True),
                 border=True,
             )
         with col2:
@@ -298,10 +303,10 @@ if uploaded_file is not None:
             st.metric(label="Fator de Lucro", value=profit_factor_display, border=True)
             st.metric(
                 label="Lucro Médio/Operação",
-                value=locale.currency(avg_winning_trade, grouping=True), border=True,
+                value=locale.format_string('%10.2f',avg_winning_trade, grouping=True), border=True,
             )
             # 'avg_losing_trade' deve ser a sua variável com o número, por exemplo: -25.50
-            locale.currency(avg_losing_trade, grouping=True)
+            locale.format_string('%10.2f',avg_losing_trade, grouping=True)
             colored_metric("Prejuízo Médio/Operação", avg_losing_trade)
             #st.metric(
             #    label="Prejuízo Médio/Operação",
@@ -316,7 +321,7 @@ if uploaded_file is not None:
         with col4:
             st.metric(
                 label="Maior Lucro (Trade)",
-                value=locale.currency(max_profit_trade, grouping=True),
+                value=locale.format_string('%10.2f',max_profit_trade, grouping=True),
                 
                 
                 border=True
@@ -331,7 +336,7 @@ if uploaded_file is not None:
                 #    value=locale.currency(max_loss_trade, grouping=True),
                 #    border=True,
                 #)
-                locale.currency(max_loss_trade, grouping=True)
+                locale.format_string('%10.2f',max_loss_trade, grouping=True)
                 colored_metric("Maior Prejuízo (Trade)", max_loss_trade)
         st.markdown("---")
 
